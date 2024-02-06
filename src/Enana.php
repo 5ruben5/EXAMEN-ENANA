@@ -34,21 +34,21 @@ class Enana
     }
 
     public function pocimaExtra()
-    {
-        if ($this->situacion === "limbo") {
-            $this->puntosVida = 50;
-            $this->situacion = "viva";
-        }
+{
+    if ($this->situacion === "limbo") {
+        $this->puntosVida = 50;
+        $this->situacion = "viva";
     }
+}
 
-    private function actualizarSituacion()
-    {
-        if ($this->puntosVida > 0) {
-            $this->situacion = "viva";
-        } elseif ($this->puntosVida <= 0 && $this->situacion !== "limbo") {
-            $this->situacion = "muerta";
-        }
+private function actualizarSituacion()
+{
+    if ($this->puntosVida > 0) {
+        $this->situacion = "viva";
+    } elseif ($this->puntosVida <= 0 && $this->situacion !== "limbo") {
+        $this->situacion = "muerta";
     }
+}
 
     // Getter's & Setter's
 
