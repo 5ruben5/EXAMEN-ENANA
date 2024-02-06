@@ -2,49 +2,45 @@
 
 class Enana
 {
-    private $nombre; #Nombre de la enana
-    private $puntosVida; #Valor de la vida que posee
-    private $situacion; #La enana estará 'viva', 'muerta' o 'limbo', dependiendo de sus puntos de vida. >0 = viva;
-                        #<0 = muerta; =0 = limbo
+    private $nombre;
+    private $puntosVida;
+    private $situacion;
 
     public function __construct($a1, $a2)
     {
         $this->nombre = $a1;
         $this->puntosVida = $a2;
-
-        // Completar la situación dependiendo de los puntos de vida
-        $this->situacion = ($a2 > 0) ? "viva" : "muerta";
-        if ($this->situacion === "muerta" && $this->puntosVida === 0) {
-            $this->situacion = "limbo";
-        }
+        $this->actualizarSituacion();
     }
 
     public function heridaLeve()
     {
+        // Se le quitan 10 puntos de vida a la Enana y se actualiza la situación
         $this->puntosVida -= 10;
-
-        // Cambiar la situación si es necesario
         $this->actualizarSituacion();
     }
 
     public function heridaGrave()
     {
+        // Se le quita toda la vida y se coloca en el limbo
         $this->puntosVida = 0;
         $this->situacion = "limbo";
     }
 
     public function pocima()
     {
+        // Recupera 10 puntos de vida y se actualiza la situación si es necesario
+        // No afecta a enanas en el limbo
         if ($this->situacion !== "limbo") {
             $this->puntosVida += 10;
-
-            // Cambiar la situación si es necesario
             $this->actualizarSituacion();
         }
     }
 
     public function pocimaExtra()
     {
+        // Devuelve a la vida del limbo y otorga 50 puntos de vida
+        // Solo afecta a enanas en el limbo
         if ($this->situacion === "limbo") {
             $this->puntosVida = 50;
             $this->situacion = "viva";
@@ -53,10 +49,15 @@ class Enana
 
     private function actualizarSituacion()
     {
+        // Actualiza la situación dependiendo de los puntos de vida
         if ($this->puntosVida <= 0) {
             $this->situacion = "limbo";
         } elseif ($this->situacion === "limbo" && $this->puntosVida > 0) {
             $this->situacion = "viva";
+        } elseif ($this->puntosVida > 0) {
+            $this->situacion = "viva";
+        } else {
+            $this->situacion = "muerta";
         }
     }
 
@@ -96,4 +97,3 @@ class Enana
     }
 }
 ?>
-
