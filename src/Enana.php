@@ -2,8 +2,8 @@
 
 class Enana
 {
-    private $nombre; 
-    private $puntosVida; 
+    private $nombre = "Ruben"; 
+    private $puntosVida = 50; 
     private $situacion; 
 
     public function __construct($nombre, $puntosVida)
