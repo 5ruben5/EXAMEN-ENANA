@@ -7,7 +7,37 @@ class EnanaTest extends TestCase {
     
     public function testCreandoEnana() {
         #Se probará la creación de enanas vivas, muertas y en limbo y se comprobará tanto la vida como el estado
-    
+    // Crear enana muerta
+    $enanaMuerta = new Enana("EnanaMuerta", 0);
+    $this->assertEquals("muerta", $enanaMuerta->getSituacion());
+    $this->assertEquals(0, $enanaMuerta->getPuntosVida());
+
+    // Crear enana viva
+    $enanaViva = new Enana("EnanaViva", 50);
+    $this->assertEquals("viva", $enanaViva->getSituacion());
+    $this->assertEquals(50, $enanaViva->getPuntosVida());
+
+    // Crear enana en limbo
+    $enanaLimbo = new Enana("EnanaLimbo", -10);
+    $this->assertEquals("limbo", $enanaLimbo->getSituacion());
+    $this->assertEquals(0, $enanaLimbo->getPuntosVida());
+
+    // Realizar acciones en enana viva
+    $enanaViva->heridaLeve();
+    $this->assertEquals("viva", $enanaViva->getSituacion());
+    $this->assertEquals(40, $enanaViva->getPuntosVida());
+
+    $enanaViva->heridaGrave();
+    $this->assertEquals("limbo", $enanaViva->getSituacion());
+    $this->assertEquals(0, $enanaViva->getPuntosVida());
+
+    $enanaViva->pocima();
+    $this->assertEquals("viva", $enanaViva->getSituacion());
+    $this->assertEquals(20, $enanaViva->getPuntosVida());
+
+    $enanaViva->pocimaExtra();
+    $this->assertEquals("viva", $enanaViva->getSituacion());
+    $this->assertEquals(70, $enanaViva->getPuntosVida());
     }
     public function testHeridaLeveVive() {
         #Se probará el efecto de una herida leve a una Enana con puntos de vida suficientes para sobrevivir al ataque
