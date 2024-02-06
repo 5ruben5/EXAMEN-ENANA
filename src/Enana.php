@@ -2,8 +2,8 @@
 
 class Enana
 {
-    private $nombre; #Nombre de la enana
-    private $puntosVida; #Valor de la vida que posee
+    private $nombre = "Ruben"; #Nombre de la enana
+    private $puntosVida = 50; #Valor de la vida que posee
     private $situacion; #La enana estará 'viva', 'muerta' o 'limbo', dependiendo de sus puntos de vida. >0 = viva;
                         #<0 = muerta; =0 = limbo
 
