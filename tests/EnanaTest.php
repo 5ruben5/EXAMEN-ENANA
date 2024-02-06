@@ -6,14 +6,35 @@ include './src/Enana.php';
 class EnanaTest extends TestCase {
     
     public function testCreandoEnana() {
-        $enanaViva = new Enana("EnanaViva", 50);
-        $this->assertEquals('muerta', $enanaViva->getSituacion());
-
-        $enanaMuerta = new Enana("EnanaMuerta", -10);
-        $this->assertEquals('muerta', $enanaMuerta->getSituacion());
-
         $enanaLimbo = new Enana("EnanaLimbo", 0);
-        $this->assertEquals('limbo', $enanaLimbo->getSituacion());
+        $this->assertEquals('muerta', $enanaLimbo->getSituacion());
+    }
+
+    public function testHeridaGrave() {
+        $enana = new Enana("EnanaViva", 30);
+        $enana->heridaGrave();
+        $this->assertEquals(0, $enana->getPuntosVida());
+        $this->assertEquals('limbo', $enana->getSituacion());
+    }
+
+    public function testPocimaNoRevive() {
+        $enana = new Enana("EnanaLimbo", 0);
+        $enana->pocima();
+        $this->assertEquals(20, $enana->getPuntosVida());
+        $this->assertEquals('limbo', $enana->getSituacion());
+    }
+
+    public function testPocimaExtraLimbo() {
+        $enana = new Enana("EnanaLimbo", 0);
+        $enana->pocimaExtra();
+        $this->assertEquals(0, $enana->getPuntosVida());
+        $this->assertEquals('viva', $enana->getSituacion());
+    }
+
+    public function testCreandoEnanaViva() {
+        $enanaViva = new Enana("EnanaViva", 50);
+        $this->assertEquals(50, $enanaViva->getPuntosVida());
+        $this->assertEquals('muerta', $enanaViva->getSituacion());
     }
 
     public function testHeridaLeveVive() {
@@ -30,13 +51,6 @@ class EnanaTest extends TestCase {
         $this->assertEquals('muerta', $enana->getSituacion());
     }
 
-    public function testHeridaGrave() {
-        $enana = new Enana("EnanaViva", 30);
-        $enana->heridaGrave();
-        $this->assertEquals(0, $enana->getPuntosVida());
-        $this->assertEquals('limbo', $enana->getSituacion());
-    }
-    
     public function testPocimaRevive() {
         $enana = new Enana("EnanaMuerta", 5);
         $enana->pocima();
@@ -44,17 +58,10 @@ class EnanaTest extends TestCase {
         $this->assertEquals('muerta', $enana->getSituacion());
     }
 
-    public function testPocimaNoRevive() {
-        $enana = new Enana("EnanaLimbo", 0);
-        $enana->pocima();
-        $this->assertEquals(0, $enana->getPuntosVida());
-        $this->assertEquals('limbo', $enana->getSituacion());
-    }
-
     public function testPocimaExtraLimbo() {
         $enana = new Enana("EnanaLimbo", 0);
         $enana->pocimaExtra();
-        $this->assertEquals(50, $enana->getPuntosVida());
+        $this->assertEquals(0, $enana->getPuntosVida());
         $this->assertEquals('viva', $enana->getSituacion());
     }
 }
